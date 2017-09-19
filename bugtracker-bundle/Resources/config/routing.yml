@@ -1,0 +1,3 @@
+bugtracker_homepage:
+    path:     /
+    defaults: { _controller: BugtrackerBundle:Default:index }

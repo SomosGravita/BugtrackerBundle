@@ -1,0 +1,4 @@
+services:
+    bugtracker.api.client:
+        class: Elemento115\BugtrackerBundle\Services\ApiClient
+        arguments: ['@guzzle.client.runcall', '@logger']

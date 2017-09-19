@@ -1,0 +1,25 @@
+{
+    "name": "elemento115/bugtracker-bundle",
+    "description": "Provides integration with the Bugtracker service API",
+    "type": "symfony-bundle",
+    "require": {
+        "symfony/symfony": "^2.8"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Elemento115",
+            "email": "sistemas@elemento115.es"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Elemento115\\BugtrackerBundle\\": ""
+        }
+    },
+    "require": {
+        "php": ">=7.0.0",
+        "symfony/symfony": "3.3.*",
+        "guzzlehttp/guzzle": "^6.3"
+    }
+}
