@@ -5,6 +5,7 @@ namespace Elemento115\BugtrackerBundle\DependencyInjection;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader;
 
 use Elemento115\BugtrackerBundle\Classes\Constants;
