@@ -2,6 +2,8 @@
 
 namespace Elemento115\BugtrackerBundle\DependencyInjection;
 
+use Elemento115\BugtrackerBundle\Services\ApiClient;
+use GuzzleHttp\Client;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -36,24 +38,26 @@ class BugtrackerExtension extends Extension
         foreach ($config['registries'] as $name => $options) {
             $handler = new Definition('GuzzleHttp\HandlerStack');
             $handler->setFactory(['GuzzleHttp\HandlerStack', 'create']);
-            $argument = [
+            $guzzleArguments = [
                 'base_uri' => $config[Constants::API_URL],
                 'handler'  => $handler
             ];
-//            // if present, add default options to the constructor argument for the Guzzle client
-//            if (array_key_exists('options', $options) && is_array($options['options'])) {
-//                foreach ($options['options'] as $key => $value) {
-//                    if ($value === null || (is_array($value) && count($value) === 0)) {
-//                        continue;
-//                    }
-//                    $argument[$key] = $value;
-//                }
-//            }
-            $client = new Definition('GuzzleHttp\Client');
-            $client->addArgument($argument);
 
-            $serviceName = sprintf('%s.client.%s', 'guzzle', $name);
-            $container->setDefinition($serviceName, $client);
+            $client = new Definition(Client::class);
+            $client->addArgument($guzzleArguments);
+
+            $api = new Definition(ApiClient::class);
+            $arguments = [
+                'client' => $client,
+                'user' => $config[Constants::API_USER],
+                'password' => $config[Constants::API_PASSWORD],
+                'registry' => $options[Constants::API_REGISTRY_TOKEN],
+                'api_version' => $config[Constants::API_VERSION]
+            ];
+            $api->addArgument($arguments);
+
+            $serviceName = sprintf('%s.client.%s', 'bugtracker', $name);
+            $container->setDefinition($serviceName, $api);
         }
     }
 }

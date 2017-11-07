@@ -30,6 +30,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode(Constants::API_USER)->end()
                 ->scalarNode(Constants::API_PASSWORD)->end()
                 ->scalarNode(Constants::API_URL)->end()
+                ->scalarNode(Constants::API_VERSION)->end()
             ->end()
             ->children()
                     ->arrayNode('registries')
