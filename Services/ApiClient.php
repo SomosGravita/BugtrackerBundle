@@ -38,24 +38,6 @@ class ApiClient
      */
     public function __construct(array $arguments)
     {
-        if ( ! isset($arguments['client'])) {
-            throw new \Exception(
-                sprintf('An instance of class %s should be provided with key "client"', Client::class)
-            );
-        }
-        if ( ! isset($arguments['user'])) {
-            throw new \Exception('Missing key "user" on arguments');
-        }
-        if ( ! isset($arguments['password'])) {
-            throw new \Exception('Missing key "password" on arguments');
-        }
-        if ( ! isset($arguments['registry'])) {
-            throw new \Exception('Missing key "registry" on arguments');
-        }
-        if ( ! isset($arguments['api_version'])) {
-            throw new \Exception('Missing key "api_version" on arguments');
-        }
-
         $this->client   = $arguments['client'];
         $this->user     = $arguments['user'];
         $this->password = $arguments['password'];
@@ -65,7 +47,7 @@ class ApiClient
         if ($this->session === null) {
             $this->session = new Session();
         }
-        if ( ! $this->session->has(self::TOKEN_NAME)) {
+        if (!$this->session->has(self::TOKEN_NAME)) {
             $this->refreshToken();
         }
 
